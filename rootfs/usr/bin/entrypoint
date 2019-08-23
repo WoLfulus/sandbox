@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 
-# Docker login
-if [ "${DOCKER_USERNAME}" != "" ] && [ "${DOCKER_PASSWORD}" != "" ]; then
-  echo "${DOCKER_PASSWORD:-none}" | docker login -u "${DOCKER_USERNAME:-none}" --password-stdin ${DOCKER_REGISTRY} > /dev/null 2>&1
-  if [ "$?" != "0" ]; then
-    echo -e "\\e[33m~ Docker credentials are invalid. Registry won't be available ~\\e[0m"
+# Docker engine
+docker ps > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+  echo -e "\\e[33m> Docker engine is unavailable. Check socket volume and privileged flag.\\e[0m"
+else
+  # Docker login
+  if [ "${DOCKER_USERNAME}" != "" ] && [ "${DOCKER_PASSWORD}" != "" ]; then
+    echo "${DOCKER_PASSWORD:-none}" | docker login -u "${DOCKER_USERNAME:-none}" --password-stdin ${DOCKER_REGISTRY} > /dev/null 2>&1
+    if [ "$?" != "0" ]; then
+      echo -e "\\e[33m> Docker registry is unavailable: invalid credentials.\\e[0m"
+      echo -e "\\e[33m> To fix this, set DOCKER_USERNAME and DOCKER_PASSWORD properly\\e[0m"
+    fi
+  else
+    echo -e "\\e[33m> Docker registry is unavailable. Set DOCKER_USERNAME and DOCKER_PASSWORD to enable it.\\e[0m"
   fi
 fi
 
