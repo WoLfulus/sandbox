@@ -1,10 +1,14 @@
+#
+# Direnv builder
+#
 FROM golang:1-alpine AS builder
-
 RUN apk --update add --no-cache bash git make
-
 RUN git clone https://github.com/direnv/direnv.git && cd direnv && \
     make install DESTDIR=/usr
 
+#
+# Sandbox machine
+#
 FROM docker:stable
 
 RUN apk --update add --no-cache bash git curl nano vim
