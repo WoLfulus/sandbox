@@ -8,5 +8,6 @@ ENV PATH="$PATH:/sandbox/bin/"
 WORKDIR /sandbox/
 
 COPY ./rootfs/ /
+RUN chmod +x /usr/bin/entrypoint
 
-ENTRYPOINT [ "entrypoint" ]
+ENTRYPOINT [ "/usr/bin/entrypoint" ]
