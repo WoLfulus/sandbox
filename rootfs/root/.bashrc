@@ -22,4 +22,4 @@ if ! [[ "${PROMPT_COMMAND:-}" =~ _sandbox_hook ]]; then
   PROMPT_COMMAND="_sandbox_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 fi
 
-eval $(find /usr/sandbox/ -type f -regex .\*\\.sh -exec echo "source {}" \;)
+eval $(find /usr/sandbox/include -type f \( ! -regex '.*/\..*' \) -exec echo "source {}" \;)

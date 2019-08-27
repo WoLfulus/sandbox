@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+echo -e "\\e[32m"
+figlet sandbox
+echo -e "\\e[0m"
+
 # Docker engine
 docker ps > /dev/null 2>&1
 if [ "$?" != "0" ]; then
   echo -e "\\e[33m> Docker engine is unavailable. Check socket volume and privileged flag.\\e[0m"
+  echo ""
 else
   # Docker login
   if [ "${DOCKER_USERNAME}" != "" ] && [ "${DOCKER_PASSWORD}" != "" ]; then
@@ -11,9 +16,11 @@ else
     if [ "$?" != "0" ]; then
       echo -e "\\e[33m> Docker registry is unavailable: invalid credentials.\\e[0m"
       echo -e "\\e[33m> To fix this, set DOCKER_USERNAME and DOCKER_PASSWORD properly\\e[0m"
+      echo ""
     fi
   else
     echo -e "\\e[33m> Docker registry is unavailable. Set DOCKER_USERNAME and DOCKER_PASSWORD to enable it.\\e[0m"
+    echo ""
   fi
 fi
 
