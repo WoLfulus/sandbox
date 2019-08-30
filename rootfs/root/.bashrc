@@ -4,7 +4,7 @@ export DIRENV_LOG_FORMAT=
 
 eval "$(direnv hook bash)"
 
-_sandbox_hook() {
+_sandcrate_hook() {
   local previous_exit_status=$?;
   if [ -f .envrc ]; then
     envrc_path=$(realpath .envrc)
@@ -18,8 +18,8 @@ _sandbox_hook() {
   return $previous_exit_status;
 };
 
-if ! [[ "${PROMPT_COMMAND:-}" =~ _sandbox_hook ]]; then
-  PROMPT_COMMAND="_sandbox_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+if ! [[ "${PROMPT_COMMAND:-}" =~ _sandcrate_hook ]]; then
+  PROMPT_COMMAND="_sandcrate_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 fi
 
-eval $(find /usr/sandbox/include -type f \( ! -regex '.*/\..*' \) -exec echo "source {}" \;)
+eval $(find /usr/sandcrate/include -type f \( ! -regex '.*/\..*' \) -exec echo "source {}" \;)

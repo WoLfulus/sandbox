@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo -e "\\e[32m"
-figlet sandbox
+figlet sandcrate.io
 echo -e "\\e[0m"
 
 # Docker engine
